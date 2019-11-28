@@ -24,7 +24,6 @@ public class Main {
       //      System.out.println("The number of results are: " + n);
       //      ResultSet rs = stmt.executeQuery("SELECT * FROM test_table");
       //      while (rs.next()) System.out.println(rs.getInt(1) + "  " + rs.getString(2));
-      //      con.close();
     } catch (Exception e) {
       System.out.println(e);
     }
