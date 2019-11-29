@@ -1,39 +1,37 @@
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Buyer {
-  private String name;
+  public String name;
   private ArrayList<Items> items;
-  private String userName;
+  public String userName;
 
-  Buyer()
-  {
-
+  Buyer() {
   }
+
   Buyer(String name, String userName) {
     this.name = name;
     this.items = new ArrayList<>();
     this.userName = userName;
   }
-  public List<Buyer> getList(){
+
+  public List<Buyer> getList() {
 
     return null;
   }
 
-  public void makeBidForItem(Items item, int price){
+  public void makeBidForItem(Items item, int price) {}
 
-  }
-  public void addItemToBuyer(Items item){
+  public void addItemToBuyer(Items item) {}
 
-  }
-  public Buyer getDetails(String userName){
+  public Buyer getDetails(String userName) {
 
     return null;
   }
 
-  public boolean createBuyer(){
+  public boolean createBuyer() {
     // create this as a new buyer
     return true;
   }
-
 }

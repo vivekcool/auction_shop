@@ -3,15 +3,17 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class DbConnection {
-  Statement stmt;
+  private static DbConnection db = null;
+  public  Statement stmt = null;
 
   DbConnection() {
+
     try {
       Class.forName("com.mysql.jdbc.Driver");
       Connection con =
           DriverManager.getConnection(
               "jdbc:mysql://localhost:3306/auction", "auction", "burningtrain");
-      stmt = con.createStatement();
+      db.stmt = con.createStatement();
       //      int n = stmt.executeUpdate("INSERT INTO test_table values (2,'Anuj Pancholi')");
       //      System.out.println("The number of results are: " + n);
       //      ResultSet rs = stmt.executeQuery("SELECT * FROM test_table");
@@ -21,8 +23,13 @@ public class DbConnection {
     }
   }
 
-  public Statement getDBStatement() {
+  public static DbConnection getDBStatement() {
 
-    return stmt;
+    if (db == null) {
+      db = new DbConnection();
+      return db;
+    }
+
+    return db;
   }
 }

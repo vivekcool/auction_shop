@@ -11,32 +11,31 @@ public class Seller {
     this.userName = userName;
     this.itemsToBeSold = new ArrayList<>();
   }
-  Seller(){
 
-  }
+  Seller() {}
 
-  public List<Seller> getList(){
+  public void createItemForSale(Items item) {}
 
-    return null;
-  }
-
-  public void createItemForSale(Items item){
-
-
-  }
-  public Seller getDetails(String userName){
+  public Seller getDetails(String userName) {
 
     return null;
   }
 
-  public boolean markSold(int itemId){
+  public String getName() {
+    return this.name;
+  }
+
+  public String getUserName() {
+    return this.userName;
+  }
+
+  public boolean markSold(int itemId) {
 
     return true;
   }
 
-  public boolean createSeller(){
+  public boolean createSeller() {
     // create this as a new seller
     return true;
   }
-
 }
