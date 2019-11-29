@@ -1,20 +1,23 @@
 public class Items {
   private String name;
-  private String description;
   private int min_bid;
   private int max_bid_so_far;
   private String category;
   private String sellerName;
   private boolean sold;
 
-  Items(String name, String desc, int min_bid, String category, String sellerName) {
-    this.description = desc;
+  Items(String name, int min_bid, String category, String sellerName) {
     this.min_bid = min_bid;
     this.name = name;
     this.max_bid_so_far = min_bid;
     this.category = category;
     this.sellerName = sellerName;
     this.sold = false;
+  }
+
+  public void createItem(){
+    // create this as a new item..
+
   }
 
   public String getName() {
