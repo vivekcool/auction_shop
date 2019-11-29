@@ -1,3 +1,5 @@
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +16,16 @@ public class Seller {
 
   Seller() {}
 
-  public void createItemForSale(Items item) {}
+  public void createItemForSale(Items item) {
+    new Items().createItem(this.userName);
+  }
 
-  public Seller getDetails(String userName) {
+  public Seller getDetails(String userName) throws Exception {
+    Statement stmt = DbConnection.getDBStatement().stmt;
+    ResultSet rs = stmt.executeQuery("SELECT * FROM seller as it where it.user_name = " + userName);
+    Seller seller = new Seller(rs.getString(1), rs.getString(0));
 
-    return null;
+    return seller;
   }
 
   public String getName() {
@@ -34,8 +41,14 @@ public class Seller {
     return true;
   }
 
-  public boolean createSeller() {
+  public boolean createSeller() throws Exception {
+
     // create this as a new seller
+    Statement stmt = DbConnection.getDBStatement().stmt;
+    int rs =
+        stmt.executeUpdate(
+            "INSERT INTO seller (user_name, full_name) VALUES ('this.userName','this.name')");
+
     return true;
   }
 }

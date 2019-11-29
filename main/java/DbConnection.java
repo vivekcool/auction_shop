@@ -4,7 +4,7 @@ import java.sql.Statement;
 
 public class DbConnection {
   private static DbConnection db = null;
-  public  Statement stmt = null;
+  public Statement stmt = null;
 
   DbConnection() {
 
@@ -13,7 +13,7 @@ public class DbConnection {
       Connection con =
           DriverManager.getConnection(
               "jdbc:mysql://localhost:3306/auction", "auction", "burningtrain");
-      db.stmt = con.createStatement();
+      this.stmt = con.createStatement();
       //      int n = stmt.executeUpdate("INSERT INTO test_table values (2,'Anuj Pancholi')");
       //      System.out.println("The number of results are: " + n);
       //      ResultSet rs = stmt.executeQuery("SELECT * FROM test_table");
@@ -27,6 +27,8 @@ public class DbConnection {
 
     if (db == null) {
       db = new DbConnection();
+
+      System.out.println("HIIIII " + db.stmt);
       return db;
     }
 

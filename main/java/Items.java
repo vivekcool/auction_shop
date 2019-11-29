@@ -1,3 +1,6 @@
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,7 +24,7 @@ public class Items {
     this.sold = false;
   }
 
-  public void createItem(String userName) {
+  public void createItem(String userName) throws Exception{
     Scanner in = new Scanner(System.in);
     System.out.println("Type the name of Item.");
     String name = in.next();
@@ -38,16 +41,40 @@ public class Items {
     this.sellerName = userName;
     this.buyerName = null;
     // create this as a new item..
+    Statement stmt = DbConnection.getDBStatement().stmt;
+    int rs =
+            stmt.executeUpdate(
+                    "INSERT INTO items (name, min_bid, max_bid, category, seller_name,sold,) VALUES (this.name,this.min_bid,this.maxbid, category, this.seller_name, false)");
+
 
   }
 
-  public List<Items> getItemsForSeller(String userName) {
+  public List<Items> getItemsForSeller(String userName) throws Exception {
+    Statement stmt = DbConnection.getDBStatement().stmt;
+    ResultSet rs =
+        stmt.executeQuery("SELECT * FROM items as it where it.seller_name = " + userName);
 
-    return null;
+    List<Items> items = new ArrayList<>();
+    while (rs.next()) {
+      Items item = new Items(rs.getString(0), rs.getInt(1), rs.getString(3), rs.getString(5));
+      item.setMax_bid_so_far(rs.getInt(2));
+      item.sold = rs.getBoolean(6);
+      items.add(item);
+    }
+    return items;
   }
 
-  public List<Items> getItemsForBuyer(String userName) {
+  public List<Items> getItemsForBuyer(String userName) throws Exception {
+    Statement stmt = DbConnection.getDBStatement().stmt;
+    ResultSet rs = stmt.executeQuery("SELECT * FROM items as it where it.buyer_name = " + userName);
 
+    List<Items> items = new ArrayList<>();
+    while (rs.next()) {
+      Items item = new Items(rs.getString(0), rs.getInt(1), rs.getString(3), rs.getString(5));
+      item.setMax_bid_so_far(rs.getInt(2));
+      item.sold = rs.getBoolean(6);
+      items.add(item);
+    }
     return null;
   }
 
@@ -63,7 +90,12 @@ public class Items {
     return this.min_bid;
   }
 
-  public void setMax_bid_so_far(int max_bid_so_far) {
+  public void setMax_bid_so_far(int max_bid_so_far) throws Exception {
+    Statement stmt = DbConnection.getDBStatement().stmt;
+    int rs =
+        stmt.executeUpdate(
+            "UPDATE items SET max_bid = " + max_bid_so_far + " WHERE name = " + this.name);
+
     this.max_bid_so_far = max_bid_so_far;
   }
 
@@ -83,10 +115,21 @@ public class Items {
     return this.buyerName;
   }
 
-  public void setBuyerName(String userName) {}
+  public void setBuyerName(String userName) throws Exception {
+    Statement stmt = DbConnection.getDBStatement().stmt;
+    int rs =
+        stmt.executeUpdate(
+            "UPDATE items SET buyer_name = " + userName + " WHERE name = " + this.name);
+
+    this.max_bid_so_far = max_bid_so_far;
+  }
 
   public boolean isSold() {
     return this.sold;
+  }
+
+  public void setSold(boolean sold) {
+    this.sold = sold;
   }
 
   @Override
